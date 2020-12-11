@@ -16,10 +16,10 @@
 
 use netlify_lambda_http::{
     lambda::{lambda, Context},
-    IntoResponse, Request, RequestExt,
+    IntoResponse, Request,
 };
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::json;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
