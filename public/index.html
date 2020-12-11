@@ -44,20 +44,56 @@
       >
         <div class="bg-white shadow sm:rounded-lg">
           <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              JSON Response
+            </h3>
+            <div class="mt-2 max-w-xl text-sm text-gray-500">
+              <p>Enter your name here</p>
+            </div>
+            <form
+              class="mt-5 sm:flex sm:items-center"
+              method="POST"
+              action="/.netlify/functions/json-response"
+            >
+              <div class="max-w-xs w-full">
+                <label for="firstName" class="sr-only">Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  placeholder="Chris Biscardi"
+                />
+              </div>
+              <button
+                type="submit"
+                class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Run Function
+              </button>
+            </form>
+          </div>
+        </div>
+      </li>
+      <li
+        class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+      >
+        <div class="bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
             <div class="sm:flex sm:items-start sm:justify-between">
               <div>
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  Hello World
+                  Query String
                 </h3>
                 <div class="mt-2 max-w-xl text-sm text-gray-500">
-                  <p>A function that responds with "Hello, World!".</p>
+                  <p>A function that responds with "Hello, {name}!".</p>
                 </div>
               </div>
               <div
                 class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center"
               >
                 <a
-                  href="/.netlify/functions/hello-world"
+                  href="/.netlify/functions/querystring?name=jane"
                   class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Run Function
