@@ -12,5 +12,6 @@ async fn main(
     _: Request,
     _: Context,
 ) -> Result<impl IntoResponse, Error> {
+    eyre::eyre!("pasfkjdgsdlasf");
     Ok("🦀🦀🦀🦀🦀🦀 Hello, Rust 🦀🦀🦀🦀🦀🦀")
 }
