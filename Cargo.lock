@@ -74,7 +74,7 @@ checksum = "ad1f8e949d755f9d79112b5bb46938e0ef9d3804a0b16dfab13aafcaa5f0fa72"
 name = "calculator"
 version = "0.1.0"
 dependencies = [
- "netlify_lambda_http",
+ "lamedh_http",
  "serde",
  "serde_json",
  "tokio",
@@ -216,7 +216,7 @@ checksum = "d7afe4a420e3fe79967a00898cc1f4db7c8a49a9333a29f8a4bd76a253d5cd04"
 name = "hello-world"
 version = "0.1.0"
 dependencies = [
- "netlify_lambda_http",
+ "lamedh_http",
  "serde",
  "serde_json",
  "tokio",
@@ -336,10 +336,60 @@ checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
 name = "json-response"
 version = "0.1.0"
 dependencies = [
- "netlify_lambda_http",
+ "lamedh_http",
  "serde",
  "serde_json",
  "tokio",
+]
+
+[[package]]
+name = "lamedh_attributes"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09734410ed90c1a0f6db7003c0935dda53968181964bae1c19084775fa24d4f2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "lamedh_http"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2a1caca623e2ebe2bbe7fd1e25adfaf6c23c7f2cd4a114616a7e1d44f052fea2"
+dependencies = [
+ "aws_lambda_events",
+ "base64 0.13.0",
+ "http",
+ "itertools",
+ "lamedh_attributes",
+ "lamedh_runtime",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_urlencoded",
+]
+
+[[package]]
+name = "lamedh_runtime"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0105a8acdbc43881f96a452d435ffd8c03243be624e0fde717df3ce458062340"
+dependencies = [
+ "async-stream",
+ "bytes 1.0.0",
+ "futures-core",
+ "futures-util",
+ "http",
+ "hyper",
+ "lamedh_attributes",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tower-service",
+ "tracing",
+ "tracing-futures",
 ]
 
 [[package]]
@@ -405,53 +455,6 @@ checksum = "5a33c1b55807fbed163481b5ba66db4b2fa6cde694a5027be10fb724206c5897"
 dependencies = [
  "socket2",
  "winapi",
-]
-
-[[package]]
-name = "netlify_lambda"
-version = "0.1.3"
-source = "git+https://github.com/netlify/aws-lambda-rust-runtime/?branch=event_types#76593c14ac62f6b47c0498f8c69cf7710f503263"
-dependencies = [
- "async-stream",
- "bytes 1.0.0",
- "futures-core",
- "futures-util",
- "http",
- "hyper",
- "netlify_lambda_attributes",
- "serde",
- "serde_json",
- "tokio",
- "tower-service",
- "tracing",
- "tracing-futures",
-]
-
-[[package]]
-name = "netlify_lambda_attributes"
-version = "0.1.1"
-source = "git+https://github.com/netlify/aws-lambda-rust-runtime/?branch=event_types#76593c14ac62f6b47c0498f8c69cf7710f503263"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "netlify_lambda_http"
-version = "0.1.2"
-source = "git+https://github.com/netlify/aws-lambda-rust-runtime/?branch=event_types#76593c14ac62f6b47c0498f8c69cf7710f503263"
-dependencies = [
- "aws_lambda_events",
- "base64 0.13.0",
- "http",
- "itertools",
- "netlify_lambda",
- "netlify_lambda_attributes",
- "serde",
- "serde_derive",
- "serde_json",
- "serde_urlencoded",
 ]
 
 [[package]]
@@ -606,7 +609,7 @@ dependencies = [
 name = "querystring"
 version = "0.1.0"
 dependencies = [
- "netlify_lambda_http",
+ "lamedh_http",
  "serde",
  "serde_json",
  "tokio",

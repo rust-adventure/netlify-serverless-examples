@@ -8,4 +8,4 @@ edition = "2018"
 serde = { version = "1.0.118", features = ["derive"] }
 tokio = { version = "1.0.1", features = ["full"] }
 serde_json = "1.0.61"
-netlify_lambda_http = { git = "https://github.com/netlify/aws-lambda-rust-runtime/", branch = "event_types" }
+lamedh_http = "0.3.0"

@@ -1,12 +1,16 @@
-use netlify_lambda_http::{
+use lamedh_http::{
     lambda::{lambda, Context},
     IntoResponse, Request,
 };
 
-type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
+type Error =
+    Box<dyn std::error::Error + Send + Sync + 'static>;
 
 #[lambda(http)]
 #[tokio::main]
-async fn main(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
-    Ok(format!("{} + {} = {}", 2, 2, 2+2))
+async fn main(
+    _: Request,
+    _: Context,
+) -> Result<impl IntoResponse, Error> {
+    Ok(format!("{} + {} = {}", 2, 2, 2 + 2))
 }
