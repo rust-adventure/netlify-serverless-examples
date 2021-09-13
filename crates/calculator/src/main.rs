@@ -9,7 +9,7 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn handler(
-    event: Value,
+    _: Value,
     _: Context,
 ) -> Result<Value, Error> {
     Ok(json!({
