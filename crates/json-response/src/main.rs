@@ -1,12 +1,13 @@
-use lamedh_http::{
-    lambda::{lambda, Context},
-    IntoResponse, Request,
-};
+use lambda_runtime::{handler_fn, Context, Error};
 use serde::{Deserialize, Serialize};
-use serde_json::json;
+use serde_json::{json, Value};
 
-type Error =
-    Box<dyn std::error::Error + Send + Sync + 'static>;
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    let handler_fn = handler_fn(handler);
+    lambda_runtime::run(handler_fn).await?;
+    Ok(())
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -14,17 +15,23 @@ struct Name {
     first_name: String,
 }
 
-#[lambda(http)]
-#[tokio::main]
-async fn main(
-    event: Request,
+#[derive(Debug, Deserialize)]
+struct Event {
+    body: Option<Name>,
+}
+
+async fn handler(
+    event: Event,
     _: Context,
-) -> Result<impl IntoResponse, Error> {
-    let event: Name = serde_json::from_slice(event.body())
+) -> Result<Value, Error> {
+    let first_name = event
+        .body
         .unwrap_or(Name {
             first_name: String::from("world"),
-        });
+        })
+        .first_name;
+
     Ok(json!({
-        "message": format!("Hello, {}!", event.first_name)
+        "message": format!("Hello, {}!", first_name)
     }))
 }

@@ -1,23 +1,22 @@
-use lamedh_http::{
-    lambda::{lambda, Context},
-    IntoResponse, Request, RequestExt,
-};
+use lambda_runtime::{handler_fn, Context, Error};
+use serde_json::{json, Value};
 
-type Error =
-    Box<dyn std::error::Error + Send + Sync + 'static>;
-
-#[lambda(http)]
 #[tokio::main]
-async fn main(
-    request: Request,
+async fn main() -> Result<(), Error> {
+    let handler_fn = handler_fn(handler);
+    lambda_runtime::run(handler_fn).await?;
+    Ok(())
+}
+
+async fn handler(
+    event: Value,
     _: Context,
-) -> Result<impl IntoResponse, Error> {
+) -> Result<Value, Error> {
     let response = format!(
         "hello {}",
-        request
-            .query_string_parameters()
-            .get("name")
-            .unwrap_or_else(|| "stranger")
+        event["queryStringParameters"]["name"]
+            .as_str()
+            .unwrap_or("stranger")
     );
-    Ok(response)
+    Ok(json!({ "body": response }))
 }

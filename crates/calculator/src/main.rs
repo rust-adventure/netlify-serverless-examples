@@ -1,16 +1,18 @@
-use lamedh_http::{
-    lambda::{lambda, Context},
-    IntoResponse, Request,
-};
+use lambda_runtime::{handler_fn, Context, Error};
+use serde_json::{json, Value};
 
-type Error =
-    Box<dyn std::error::Error + Send + Sync + 'static>;
-
-#[lambda(http)]
 #[tokio::main]
-async fn main(
-    _: Request,
+async fn main() -> Result<(), Error> {
+    let handler_fn = handler_fn(handler);
+    lambda_runtime::run(handler_fn).await?;
+    Ok(())
+}
+
+async fn handler(
+    event: Value,
     _: Context,
-) -> Result<impl IntoResponse, Error> {
-    Ok(format!("{} + {} = {}", 2, 2, 2 + 2))
+) -> Result<Value, Error> {
+    Ok(json!({
+        "body": format!("{} + {} = {}", 2, 2, 2 + 2)
+    }))
 }
