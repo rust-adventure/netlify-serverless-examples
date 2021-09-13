@@ -1,12 +1,11 @@
 [build]
 command = """
 mkdir functions &&
-RUSTFLAGS='-C link-arg=-s' cargo build --release &&
+cargo build --release &&
 cp target/release/hello-world functions/ &&
 cp target/release/calculator functions/ &&
 cp target/release/json-response functions/ &&
-cp target/release/querystring functions/ &&
-grep -rIL target/release
+cp target/release/querystring functions/
 """
 publish = "public"
 functions = "functions"
