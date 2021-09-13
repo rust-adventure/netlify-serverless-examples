@@ -1,4 +1,11 @@
 [build]
-command = "make build"
+command = """
+RUSTFLAGS='-C link-arg=-s' cargo build --release &&\
+cp target/release/hello-world functions/ &&\
+cp target/release/calculator functions/ &&\
+cp target/release/json-response functions/ &&\
+cp target/release/querystring functions/ &&\
+grep -rIL target/release
+"""
 publish = "public"
 functions = "functions"
