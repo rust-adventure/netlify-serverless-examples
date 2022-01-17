@@ -1,6 +1,12 @@
 [build]
 command = """
-echo 'hi'
+mkdir functions &&
+cargo build --release &&
+cp target/release/hello-world functions/ &&
+cp target/release/calculator functions/ &&
+cp target/release/json-response functions/ &&
+cp target/release/querystring functions/ &&
+cp target/release/reqwest-dad-joke functions/
 """
 publish = "public"
-functions = "crates"
+functions = "functions"
