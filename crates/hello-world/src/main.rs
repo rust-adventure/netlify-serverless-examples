@@ -1,3 +1,9 @@
+use aws_lambda_events::{
+    encodings::Body,
+    event::apigw::{
+        ApiGatewayProxyRequest, ApiGatewayProxyResponse,
+    },
+};
 use lambda_runtime::{handler_fn, Context, Error};
 use serde_json::{json, Value};
 
@@ -9,7 +15,7 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn handler(
-    _: Value,
+    _: ApiGatewayProxyRequest,
     _: Context,
 ) -> Result<Value, Error> {
     Ok(
