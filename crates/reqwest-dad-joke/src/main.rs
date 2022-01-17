@@ -27,7 +27,7 @@ async fn handler(
     let client = reqwest::Client::new();
 
     let dadjoke: DadJoke = client
-        .get("https://www.rust-lang.org")
+        .get("https://icanhazdadjoke.com/")
         .header("Accept", "application/json")
         .header("User-Agent", "Rust Adventure Serverless Examples (https://github.com/rust-adventure/netlify-serverless-examples)")
         .send()
