@@ -24,11 +24,16 @@ async fn handler(
     _: ApiGatewayProxyRequest,
     _: Context,
 ) -> Result<ApiGatewayProxyResponse, Error> {
-    let dadjoke: DadJoke =
-        reqwest::get("https://www.rust-lang.org")
-            .await?
-            .json()
-            .await?;
+    let client = reqwest::Client::new();
+
+    let dadjoke: DadJoke = client
+        .get("https://www.rust-lang.org")
+        .header("Accept", "application/json")
+        .header("User-Agent", "Rust Adventure Serverless Examples (https://github.com/rust-adventure/netlify-serverless-examples)")
+        .send()
+        .await?
+        .json()
+        .await?;
 
     Ok(ApiGatewayProxyResponse {
         status_code: 200,
