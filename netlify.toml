@@ -1,11 +1,2 @@
-[build]
-command = """
-mkdir functions &&
-cargo build --release &&
-cp target/release/hello-world functions/ &&
-cp target/release/calculator functions/ &&
-cp target/release/json-response functions/ &&
-cp target/release/querystring functions/
-"""
 publish = "public"
-functions = "functions"
+functions = "crates"
