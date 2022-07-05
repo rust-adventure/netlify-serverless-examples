@@ -1,16 +1,14 @@
-use lambda_runtime::{handler_fn, Context, Error};
+use lambda_runtime::{service_fn, Error, LambdaEvent};
 use serde_json::{json, Value};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let handler_fn = handler_fn(handler);
-    lambda_runtime::run(handler_fn).await?;
+    lambda_runtime::run(service_fn(handler)).await?;
     Ok(())
 }
 
 async fn handler(
-    _: Value,
-    _: Context,
+    _: LambdaEvent<Value>,
 ) -> Result<Value, Error> {
     Ok(json!({
         "body": format!("{} + {} = {}", 2, 2, 2 + 2)

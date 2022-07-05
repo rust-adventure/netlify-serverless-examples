@@ -2,7 +2,7 @@
 name = "redirect"
 version = "0.1.0"
 authors = ["Christopher Biscardi <chris@christopherbiscardi.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.130", features = ["derive"] }

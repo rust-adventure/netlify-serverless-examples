@@ -1,11 +1,10 @@
-use lambda_runtime::{handler_fn, Context, Error};
+use lambda_runtime::{service_fn, Error, LambdaEvent};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let handler_fn = handler_fn(handler);
-    lambda_runtime::run(handler_fn).await?;
+    lambda_runtime::run(service_fn(handler)).await?;
     Ok(())
 }
 
@@ -21,9 +20,9 @@ struct Event {
 }
 
 async fn handler(
-    event: Event,
-    _: Context,
+    event: LambdaEvent<Event>,
 ) -> Result<Value, Error> {
+    let (event, _context) = event.into_parts();
     let first_name = event
         .body
         .unwrap_or(Name {

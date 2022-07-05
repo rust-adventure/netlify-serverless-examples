@@ -4,25 +4,23 @@ use aws_lambda_events::{
         ApiGatewayProxyRequest, ApiGatewayProxyResponse,
     },
 };
-use lambda_runtime::{handler_fn, Context, Error};
+use lambda_runtime::{service_fn, Error, LambdaEvent};
 use reqwest::header::HeaderMap;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let handler_fn = handler_fn(handler);
-    lambda_runtime::run(handler_fn).await?;
+    lambda_runtime::run(service_fn(handler)).await?;
     Ok(())
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 struct DadJoke {
     id: String,
     joke: String,
 }
 async fn handler(
-    _: ApiGatewayProxyRequest,
-    _: Context,
+    _: LambdaEvent<ApiGatewayProxyRequest>,
 ) -> Result<ApiGatewayProxyResponse, Error> {
     let client = reqwest::Client::new();
 
@@ -39,7 +37,9 @@ async fn handler(
         status_code: 200,
         headers: HeaderMap::new(),
         multi_value_headers: HeaderMap::new(),
-        body: Some(Body::Text(dadjoke.joke)),
+        body: Some(Body::Text(
+            serde_json::to_string(&dadjoke).unwrap(),
+        )),
         is_base64_encoded: Some(false),
     })
 }
