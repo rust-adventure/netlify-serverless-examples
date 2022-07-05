@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
 cargo zigbuild --target x86_64-unknown-linux-gnu.2.26 --release
