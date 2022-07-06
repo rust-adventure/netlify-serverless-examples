@@ -8,5 +8,6 @@ cp target/x86_64-unknown-linux-gnu/release/hello-world functions/
 cp target/x86_64-unknown-linux-gnu/release/calculator functions/
 cp target/x86_64-unknown-linux-gnu/release/json-response functions/
 cp target/x86_64-unknown-linux-gnu/release/querystring functions/
+cp target/x86_64-unknown-linux-gnu/release/redirect functions/
 cp target/x86_64-unknown-linux-gnu/release/reqwest-dad-joke functions/
 

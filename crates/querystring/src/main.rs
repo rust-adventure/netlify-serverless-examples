@@ -1,5 +1,11 @@
+use aws_lambda_events::{
+    apigw::{
+        ApiGatewayProxyRequest, ApiGatewayProxyResponse,
+    },
+    encodings::Body,
+};
+use http::HeaderMap;
 use lambda_runtime::{service_fn, Error, LambdaEvent};
-use serde_json::{json, Value};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -8,14 +14,21 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn handler(
-    event: LambdaEvent<Value>,
-) -> Result<Value, Error> {
+    event: LambdaEvent<ApiGatewayProxyRequest>,
+) -> Result<ApiGatewayProxyResponse, Error> {
     let (event, _context) = event.into_parts();
     let response = format!(
         "hello {}",
-        event["queryStringParameters"]["name"]
-            .as_str()
+        event
+            .query_string_parameters
+            .first("name")
             .unwrap_or("stranger")
     );
-    Ok(json!({ "body": response }))
+    Ok(ApiGatewayProxyResponse {
+        status_code: 200,
+        headers: HeaderMap::new(),
+        multi_value_headers: HeaderMap::new(),
+        body: Some(Body::Text(response)),
+        is_base64_encoded: Some(false),
+    })
 }
